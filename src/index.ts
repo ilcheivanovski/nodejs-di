@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 5050;
   });
 
   // Usage:
-  const dbService = new DB(process.env.NODE_ENV || "development", false);
+  const dbService = new DB(process.env.NODE_ENV || "development", true);
 
   await dbService.start();
   await dbService.createPredefinedCoffees();
