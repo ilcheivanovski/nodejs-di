@@ -67,9 +67,8 @@ export default class DB {
         return this.startMigrateTrue();
       }
 
-      // TODO: add this to set initial tables
+      // if we want to drop database uncomment this
       // await this.startMigrateFalse();
-      // await this.createPredefinedCoffees();
     } catch (err) {
       this.errorDBStart(err);
     }
@@ -126,100 +125,103 @@ export default class DB {
     }
   }
 
-  private async createPredefinedCoffees() {
-    await Coffee.create(
-      {
-        name: "Latte",
-        ingredients: [
-          { name: "Espresso", size: 30 },
-          { name: "Steamed milk", size: 200 },
-          { name: "Milk foam", size: 20 },
-        ],
-      } as Coffee,
-      {
-        include: [
-          {
-            association: Ingredient.associations.ingredients,
-            as: "ingredients",
-          },
-        ],
-      }
-    );
+  public async createPredefinedCoffees() {
+    const allCoffees = await Coffee.findAll();
+    if (allCoffees.length < 5) {
+      await Coffee.create(
+        {
+          name: "Latte",
+          ingredients: [
+            { name: "Espresso", size: 30 },
+            { name: "Steamed milk", size: 200 },
+            { name: "Milk foam", size: 20 },
+          ],
+        } as Coffee,
+        {
+          include: [
+            {
+              association: Ingredient.associations.ingredients,
+              as: "ingredients",
+            },
+          ],
+        }
+      );
 
-    await Coffee.create(
-      {
-        name: "Cappuccino",
-        ingredients: [
-          { name: "Espresso", size: 30 },
-          { name: "Steamed milk", size: 60 },
-          { name: "Milk foam", size: 60 },
-          { name: "Cinnamon", size: 1 },
-        ],
-      } as Coffee,
-      {
-        include: [
-          {
-            association: Ingredient.associations.ingredients,
-            as: "ingredients",
-          },
-        ],
-      }
-    );
+      await Coffee.create(
+        {
+          name: "Cappuccino",
+          ingredients: [
+            { name: "Espresso", size: 30 },
+            { name: "Steamed milk", size: 60 },
+            { name: "Milk foam", size: 60 },
+            { name: "Cinnamon", size: 1 },
+          ],
+        } as Coffee,
+        {
+          include: [
+            {
+              association: Ingredient.associations.ingredients,
+              as: "ingredients",
+            },
+          ],
+        }
+      );
 
-    await Coffee.create(
-      {
-        name: "Americano",
-        ingredients: [
-          { name: "Espresso", size: 30 },
-          { name: "Hot water", size: 120 },
-        ],
-      } as Coffee,
-      {
-        include: [
-          {
-            association: Ingredient.associations.ingredients,
-            as: "ingredients",
-          },
-        ],
-      }
-    );
+      await Coffee.create(
+        {
+          name: "Americano",
+          ingredients: [
+            { name: "Espresso", size: 30 },
+            { name: "Hot water", size: 120 },
+          ],
+        } as Coffee,
+        {
+          include: [
+            {
+              association: Ingredient.associations.ingredients,
+              as: "ingredients",
+            },
+          ],
+        }
+      );
 
-    await Coffee.create(
-      {
-        name: "Macchiato",
-        ingredients: [
-          { name: "Espresso", size: 30 },
-          { name: "Steamed milk", size: 20 },
-        ],
-      } as Coffee,
-      {
-        include: [
-          {
-            association: Ingredient.associations.ingredients,
-            as: "ingredients",
-          },
-        ],
-      }
-    );
+      await Coffee.create(
+        {
+          name: "Macchiato",
+          ingredients: [
+            { name: "Espresso", size: 30 },
+            { name: "Steamed milk", size: 20 },
+          ],
+        } as Coffee,
+        {
+          include: [
+            {
+              association: Ingredient.associations.ingredients,
+              as: "ingredients",
+            },
+          ],
+        }
+      );
 
-    await Coffee.create(
-      {
-        name: "Mocha",
-        ingredients: [
-          { name: "Espresso", size: 30 },
-          { name: "Steamed milk", size: 150 },
-          { name: "Chocolate syrup", size: 30 },
-          { name: "Whipped cream", size: 20 },
-        ],
-      } as Coffee,
-      {
-        include: [
-          {
-            association: Ingredient.associations.ingredients,
-            as: "ingredients",
-          },
-        ],
-      }
-    );
+      await Coffee.create(
+        {
+          name: "Mocha",
+          ingredients: [
+            { name: "Espresso", size: 30 },
+            { name: "Steamed milk", size: 150 },
+            { name: "Chocolate syrup", size: 30 },
+            { name: "Whipped cream", size: 20 },
+          ],
+        } as Coffee,
+        {
+          include: [
+            {
+              association: Ingredient.associations.ingredients,
+              as: "ingredients",
+            },
+          ],
+        }
+      );
+    }
   }
 }

@@ -23,9 +23,12 @@ const PORT = process.env.PORT || 5050;
   });
 
   // Usage:
-  const dbService = new DB(process.env.NODE_ENV || "development", true);
+  const dbService = new DB(process.env.NODE_ENV || "development", false);
+
   await dbService.start();
+  await dbService.createPredefinedCoffees();
   await server.start();
+
   appConfigured.use(
     "/graphql",
     cors(),
