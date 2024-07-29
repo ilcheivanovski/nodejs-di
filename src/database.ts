@@ -1,14 +1,14 @@
-import mongoose from "mongoose";
+import { Dialect, Sequelize } from "sequelize";
 
-const connectDB = async () => {
-  try {
-    mongoose.set("strictQuery", true);
-    mongoose.connect("mongodb://127.0.0.1/blog");
-    console.info("connected to DB");
-  } catch (error) {
-    console.log(`conection error: ${error} on Worker process: ${process.pid}`);
-    process.exit(1);
+const sequelize = new Sequelize(
+  "coffeeShopDb",
+  process.env.DB_USERNAME || "postgres",
+  process.env.DB_PASSWORD || "admin",
+  {
+    database: process.env.DB_DATABASE || "coffeeShopDb",
+    host: process.env.DB_HOST || "localhost",
+    dialect: (process.env.DB_CONNECTION as Dialect) || "postgres",
   }
-};
+);
 
-export default connectDB;
+export default sequelize;
